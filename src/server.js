@@ -1,7 +1,7 @@
 
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.API_PORT
 
 const users = require('./modules/user/user.routes');
 const cors = require('cors');
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`app listening on port ${port}`)
 })
 
 module.exports = app;

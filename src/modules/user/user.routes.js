@@ -1,9 +1,14 @@
 const express = require('express')
 const router = express.Router()
+const {
+  verifyToken
+} = require('../../middlewares/auth');
 
 
 const {
-  makeUser
+  makeUser, 
+  login,
+  buy
 } = require('./user.controller');
 
 //does the following everytime you hit the router
@@ -16,11 +21,21 @@ const {
 router
   .post(
     '/signup',
-    makeUser,
-    () => {
-      console.log('just to check if try catch actuall works');
-    }
+    makeUser
   )
+
+router
+    .post(
+      '/login',
+      login
+    )
+
+router
+    .post(
+       '/buyPoints',
+       verifyToken,
+       buy 
+    )
 // define the about route
 router.get('/about', (req, res) => {
   res.send('About Users')
