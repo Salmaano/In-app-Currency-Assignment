@@ -7,6 +7,8 @@ const users = require('./modules/user/user.routes');
 const cors = require('cors');
 
 app.use(cors());
+//allows express to handle json payloads in requests
+app.use(express.json());
 
 app.use('/users', users);
 
