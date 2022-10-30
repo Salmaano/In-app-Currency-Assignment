@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
     lastName: {type: String, required: true},
     wallet: {type: Number, required:false},
     phoneNumber: {type: String, required: true},
-    password: {type: String, required:true}
+    password: {type: String, required:true},
+    feature: [{type:String, required:false}]
 })
 
 const User = mongoose.model('User', userSchema);

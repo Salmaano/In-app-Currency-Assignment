@@ -1,0 +1,87 @@
+Database layer:
+
+User:
+firstName
+lastName
+Maqsad points: 100 points
+maybe: payment method
+
+Age
+Number/email
+password
+In app currency: maqsad points
+
+The users can either:
+
+- BUY maqsad points
+OR
+- EARN maqsad points
+
+
+
+
+2 API endpoints:
+
+ - Adding maqsad points to wallet: POST
+ 
+ req:
+ 
+ {
+	points: "100",
+	paymentMethod: {
+		"cardNumber": "37309=309-4i9-"
+			etc
+	}
+ 
+ }
+ 
+ response:{
+	"x points have been added"
+ }
+ 
+ could be any amount
+ or incremental amounts like valorant
+ 
+ - Paying through the wallet: PUT probably
+ 
+	req: 
+	{
+		"featureName": "F"
+	}
+	
+	headers: auth token
+	
+	response:
+	{
+		message: "feature purchased"
+	}
+ 
+ 
+ this is referring to unlocking premium features
+ 
+ Validations and error handling:
+ 
+ Unauthorised access - concerning actual payment
+ 
+ Invalid amount - concerning actual payment
+ 
+ Not enough balance - concerning actual payment
+ 
+ 
+ Folder structure:
+ 
+ User:
+ userRoutes
+ userController
+ userService
+ 
+ 
+Models:
+Users.model
+
+
+Server.js
+to start the server and router and stuff
+
+Index.js bind everything together
+ 
