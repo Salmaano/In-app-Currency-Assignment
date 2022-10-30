@@ -1,7 +1,8 @@
 const {
     createUser,
     loginUser,
-    buyPoints
+    buyPoints,
+    purchaseFeature
 } = require('./user.service');
 
 
@@ -49,9 +50,23 @@ const buy = async(req,res, next) => {
     }
 }
 
+const buyFeature = async (req, res) => {
+    try{
+        const returned = await purchaseFeature(req);
+        res.send(returned);
+    } catch (error){
+        console.log(error);
+        res.status(error.status);
+        res.send({
+            message: error.message
+        });
+    }
+}
+
 module.exports = {
     makeUser,
     login,
-    buy
+    buy,
+    buyFeature
 }
  

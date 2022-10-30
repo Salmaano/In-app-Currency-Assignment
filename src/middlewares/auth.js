@@ -11,6 +11,7 @@ const verifyToken = async (req, res, next) => {
         res.send({
             message: 'The token provided is invalid'
         });
+        next(error);
     }
     return next();
 

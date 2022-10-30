@@ -2,17 +2,11 @@ const {User, userSchema} = require('../../models/user.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const errors = require('../../errors/common.errors');
+const features = require('../../imports/features');
 
 const salt = 10;
 
-/**
- * creates a user document and saves it in the database
- * @property firstName - user's first name
- * @property lastName - users's last name
- * @property password - account password
- * @property phoneNumber - the user's phone number
- * @returns response - a JSON object of the new user's document
- */
+
 const createUser = async (req) => {
     const{
         firstName,
@@ -51,8 +45,6 @@ const loginUser = async (req) => {
         phoneNumber,
         password
     } = req.body;
-
-    //add error check for input
 
     let returnedUser = await User.findOne({
         phoneNumber
@@ -108,8 +100,49 @@ const buyPoints = async (req) => {
     return {message: `${maqsadPoints} points have been added to your wallet`};
 }
 
+const purchaseFeature = async(req) => {
+    const {
+        featureName
+    } = req.body;
+
+    const {
+        phoneNumber
+    } = req.user;
+
+    if (!Object.hasOwn(features, featureName)){
+        throw new errors.FeautureDoesNotExist('The feature specified does not exist');
+    }
+    const featurePrice = features[featureName].price;
+
+    const returnedUser = await User.findOne({
+        phoneNumber
+     });
+
+    const updatedWallet = returnedUser.wallet - featurePrice;
+
+    if (returnedUser.features.includes(featureName)){
+        throw new errors.AlreadyPurchased('This feature has already been purchased');
+    }
+
+    if(updatedWallet<=0){
+        throw new errors.LowCredit('Wallet does not have enough credit. Please top-up your wallet');
+    }
+
+    await User.updateOne(
+        { phoneNumber: phoneNumber },
+        { 
+            $push: { features: featureName },
+            $set:  {wallet: updatedWallet }
+        },
+    );
+    
+    return {message: `${featureName} has been unlocked`};
+
+}
+
 module.exports = {
     createUser,
     loginUser,
-    buyPoints
+    buyPoints,
+    purchaseFeature
 };

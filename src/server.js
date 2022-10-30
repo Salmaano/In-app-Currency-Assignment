@@ -12,9 +12,6 @@ app.use(express.json());
 
 app.use('/users', users);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`)
