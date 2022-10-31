@@ -25,7 +25,7 @@ router
     )
 
 router
-    .post(
+    .put(
        '/buyPoints',
        verifyToken,
        buy 
