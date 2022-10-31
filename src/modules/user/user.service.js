@@ -18,9 +18,7 @@ const createUser = async (req) => {
     const checkUser = await User.findOne({
        phoneNumber
     })    
-
-    console.log(checkUser);
-
+    
     if (checkUser){
         throw new errors.UserExists('The phone number provided has already been registered with another account');
     };
@@ -89,13 +87,17 @@ const buyPoints = async (req) => {
     if (!paymentMethod){
         throw new errors.PaymentRequired('Payment details have not been provided');
     }
-    let res = null;
+
     const returnedUser = await User.findOne({
         phoneNumber
      });
-    const userAmount = returnedUser.wallet;
+
+    let userAmount = 0;
+    if (returnedUser.wallet){
+        userAmount = returnedUser.wallet;
+    }
     const finalAmount = userAmount + maqsadPoints;
-    res = await User.updateOne({ phoneNumber: phoneNumber }, {wallet: finalAmount});
+    let returned = await User.updateOne({ phoneNumber: phoneNumber }, {wallet: finalAmount});
 
     return {message: `${maqsadPoints} points have been added to your wallet`};
 }
