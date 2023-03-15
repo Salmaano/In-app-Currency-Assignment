@@ -1,4 +1,4 @@
-<h1> In-app Currency Assignment </h1>
+<h1> In-app Currency </h1>
 
 An backend system that showcases a wallet service that uses in-app currency to buy points and purchase features. I made this using Node JS, Express JS and MongoDB.
 
