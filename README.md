@@ -1,6 +1,6 @@
 <h1> In-app Currency </h1>
 
-An backend system that showcases a wallet service that uses in-app currency to buy points and purchase features. I made this using Node JS, Express JS and MongoDB.
+A backend system that showcases a wallet service that uses in-app currency to buy points and purchase features. I made this using Node JS, Express JS and MongoDB.
 
 Use the provided example env. The program will run locally on port 3000.
 
